@@ -1,6 +1,6 @@
 <div align="center">
 <p align="center">
-  <img src="https://i.postimg.cc/kMKDp35T/2025-06-06-134425.png" alt="Cursor Pro Logo" width="500" style="border-radius: 6px;"/>
+  <img src="https://i.postimg.cc/kMKDp35T/2025-06-06-134425.png" alt="Cursor Pro Logo" width="800" style="border-radius: 6px;"/>
 </p>
 
 
