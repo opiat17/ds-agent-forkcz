@@ -73,6 +73,10 @@ poetry install
 ```
 
 3. Edit config.yaml
+
+4. Rename proxy.example.txt -> proxy.txt
+
+5. Rename accounts.example.txt -> accounts.txt
 ```
 You need have API Key for LLM OpenAI/DeepSeek for AI mode work
 ```
