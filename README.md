@@ -80,7 +80,7 @@ poetry install
 ```
 You need have API Key for LLM OpenAI/DeepSeek for AI mode work
 ```
-- https://auth.openai.com
+- https://platform.openai.com
 - https://platform.deepseek.com
     
 ## ⚡️ Settings
