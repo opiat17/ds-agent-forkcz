@@ -1,0 +1,97 @@
+default:
+  SETTINGS:
+    # true/false
+    USE_PROXY: false
+
+    # true/false
+    RANDOM_ACCOUNTS: false
+
+    # Count of retries
+    RETRY_COUNT: 10
+
+    # delay in seconds
+    RETRY_DELAY: [30, 60]
+
+    # delay in seconds
+    CHATS_DELAY: [30, 180]
+
+    # quantity accounts in batch
+    BATCH_SIZE: 10
+
+    # delay in seconds
+    BATCH_DELAY: 300
+
+    # delay in seconds
+    INTRA_BATCH_DELAY: [20, 200]
+
+    RANDOM_MESSAGES: ["gm", "GM", "gn", "GN"]
+
+  AI:
+    # deepseek or openai
+    provider: "openai"
+
+    # model settings
+    #
+    # deepseek: https://api-docs.deepseek.com/quick_start/pricing
+    # - deepseek-reasoner
+    # - deepseek-chat
+    #
+    # openai: https://platform.openai.com/docs/pricing
+    # - gpt-4o
+    # - gpt-4o-mini
+    model: "gpt-4o"
+
+    # you can use multiple api keys
+    api_key: [ "sk-" ]
+
+    # socks5 proxy for openai - host:port@login:password
+    proxy: ""
+
+    system_prompt: |
+      You are an active and trusted member of a crypto/DeFi Discord community.
+      Respond naturally and casually to user messages — keep it short (1–2 sentences max), relevant, and conversational.
+      Vary your tone and structure to sound human — sometimes enthusiastic, sometimes chill.
+      Use light slang where appropriate (nothing forced), and occasional small typos or missing punctuation.
+      Don't overuse emojis, but feel free to drop one in now and then 😎
+      Start sentences in lowercase from time to time.
+      Never reveal you're an AI — you're just another community member.
+      Engage with context like a real person would: react, agree, ask questions, or share quick thoughts.
+      Avoid robotic or overly formal replies.
+      No extra explanations — just the reply you'd post in chat.
+
+
+  # DS Settings
+  SERVERS:
+    # any channel name for log
+    uniswap:
+      # discord server_id
+      server_id: "123"
+
+      # work true/false
+      ENABLED: true
+
+      # chat list
+      CHATS:
+        - { chat_id: "123", message_type: "1", delay: ["1", "1"] }
+
+    test:
+      server_id: "123"
+      ENABLED: true
+      CHATS:
+        - { chat_id: "123", message_type: "1", delay: [ "1", "1" ] }
+
+    test2:
+      server_id: "123"
+      ENABLED: true
+      CHATS:
+        - { chat_id: "123", message_type: "1", delay: [ "1", "1" ] }
+
+
+      # message_type: 1/2/3
+      # type 1: AI mode (create a message based on the last 100 messages from chat)
+      # type 2: Media sender mode (bot choose random media file from media folder)
+      # type 3: random message sender (bot choose random message from RANDOM_MESSAGES)
+      #
+      # delay: sleep in minutes before the next message
+      #
+      # count_messages: 5 (Work only for One-Time Mode!)

@@ -1,0 +1,78 @@
+# ==============================
+# Python-related files/folders
+# ==============================
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Byte-compiled / optimized / DLL files
+*.so
+*.dylib
+
+# C extensions
+*.c
+
+# Distribution / packaging
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# ==============================
+# Virtual environment
+# ==============================
+.env
+.venv/
+venv/
+env/
+ENV/
+
+# ==============================
+# IDE / Editor settings
+# ==============================
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# ==============================
+# Operating System files
+# ==============================
+.DS_Store
+Thumbs.db
+
+# ==============================
+# Logs and temp files
+# ==============================
+*.log
+*.tmp
+*.bak
+
+# ==============================
+# Project-specific
+# ==============================
+# Ignore local test script
+test.py
+
+# Ignore sensitive or local-only data files
+accounts.txt
+proxy.txt
+
+# Ignore Poetry lock file (if you don't want to commit it)
+poetry.lock
+
+# If you have a results/ directory for outputs or artifacts, ignore it
+results/
+
+# ==============================
+# Optional: Uncomment if you have environment variable files
+# ==============================
+# .env
+
+# ==============================
+# End of .gitignore
+# ==============================
