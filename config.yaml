@@ -1,7 +1,7 @@
 default:
   SETTINGS:
     # true/false
-    USE_PROXY: false
+    USE_PROXY: true
 
     # true/false
     RANDOM_ACCOUNTS: false
@@ -27,8 +27,8 @@ default:
     RANDOM_MESSAGES: ["gm", "GM", "gn", "GN"]
 
   AI:
-    # deepseek or openai
-    provider: "openai"
+    # deepseek, openai or nous
+    provider: "nous"
 
     # model settings
     #
@@ -39,7 +39,13 @@ default:
     # openai: https://platform.openai.com/docs/pricing
     # - gpt-4o
     # - gpt-4o-mini
-    model: "gpt-4o"
+    #
+    # nous: https://portal.nousresearch.com/models
+    # - Hermes-3-Llama-3.1-70B
+    # - DeepHermes-3-Llama-3-8B-Preview
+    # - DeepHermes-3-Mistral-24B-Preview
+    # - Hermes-3-Llama-3.1-405B
+    model: "Hermes-3-Llama-3.1-70B"
 
     # you can use multiple api keys
     api_key: [ "sk-" ]
@@ -57,7 +63,8 @@ default:
       Never reveal you're an AI — you're just another community member.
       Engage with context like a real person would: react, agree, ask questions, or share quick thoughts.
       Avoid robotic or overly formal replies.
-      No extra explanations — just the reply you'd post in chat.
+      Don't tag or mention users.
+      Speak as a fellow community member — not as an admin, mod, or support.
 
 
   # DS Settings

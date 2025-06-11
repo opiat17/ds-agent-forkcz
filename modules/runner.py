@@ -20,15 +20,12 @@ class UnifiedRunner:
         self.mode = mode
 
         if settings.SETTINGS.USE_PROXY:
-            self.account_proxy_map: Dict[str, Optional[str]] = {
-                account: proxy
-                for account, proxy in zip(ACCOUNTS, PROXIES)
-            }
+            pairs = list(zip(ACCOUNTS, PROXIES))
+            if settings.SETTINGS.RANDOM_ACCOUNTS:
+                random.shuffle(pairs)
+            self.account_proxy_map: Dict[str, Optional[str]] = dict(pairs)
         else:
-            self.account_proxy_map: Dict[str, Optional[str]] = {
-                account: None
-                for account in ACCOUNTS
-            }
+            self.account_proxy_map: Dict[str, Optional[str]] = {account: None for account in ACCOUNTS}
 
         self.batch_size = settings.SETTINGS.BATCH_SIZE
         self.batch_delay = settings.SETTINGS.BATCH_DELAY

@@ -20,8 +20,5 @@ settings = Dynaconf(
 with open("accounts.txt", "r") as file:
     ACCOUNTS = [row.strip() for row in file]
 
-if settings.SETTINGS.RANDOM_ACCOUNTS:
-    random.shuffle(ACCOUNTS)
-
 with open("proxy.txt", "r") as file:
     PROXIES = [row.strip() for row in file]

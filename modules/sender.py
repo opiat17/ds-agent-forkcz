@@ -5,7 +5,8 @@ from typing import Dict, Any, List, Union
 from loguru import logger
 
 from agent.agent import SimpleAgent
-from config.config import settings, PROXIES
+from agent.nous import NousResearch
+from config.config import settings
 from discord.client import DiscordUserClient
 from utils.helpers import get_media_files
 
@@ -15,7 +16,6 @@ class MessageSender:
         self.mode = mode
         self.account = account
         self.proxy = proxy
-        self.ai_agent = SimpleAgent(settings.AI.provider)
         self.media_files = get_media_files()
         self.active_tasks = {}
 
@@ -143,7 +143,13 @@ class MessageSender:
             ])
 
             prompt = f"{settings.AI.system_prompt}\n\nContext messages:\n{context}"
-            ai_response = await self.ai_agent.handle_input(prompt)
+
+            if settings.AI.provider == "nous":
+                async with NousResearch(self.account, self.proxy) as nous:
+                    ai_response = await nous.invoke(prompt)
+            else:
+                ai_agent = SimpleAgent(settings.AI.provider)
+                ai_response = await ai_agent.handle_input(prompt)
 
             if ai_response is None:
                 raise Exception

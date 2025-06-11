@@ -1,6 +1,6 @@
 <div align="center">
 <p align="center">
-  <img src="https://i.postimg.cc/kMKDp35T/2025-06-06-134425.png" alt="Cursor Pro Logo" width="500" style="border-radius: 6px;"/>
+  <img src="https://i.postimg.cc/kMKDp35T/2025-06-06-134425.png" alt="Cursor Pro Logo" width="800" style="border-radius: 6px;"/>
 </p>
 
 
@@ -32,6 +32,15 @@ AI Agent for working with Discord
 
 - 🌐 **Support for Any LLM (OpenAI / DeepSeek)**  
   Easily swap providers—just set `provider: "openai"` or `provider: "deepseek"` in your configuration. To add a new model, follow the pattern in `ai_agent/llm_wrapper.py`.
+
+- 🧠 **NousResearch LLM Support**  
+  Full support for cutting-edge models from [NousResearch](https://portal.nousresearch.com/) — just set the provider in your config.  
+  Available models:
+  - `Hermes-3-Llama-3.1-70B`
+  - `DeepHermes-3-Llama-3-8B-Preview`
+  - `DeepHermes-3-Mistral-24B-Preview`
+  - `Hermes-3-Llama-3.1-405B`  
+  Use `provider: "nous"` in your `config.yaml` to integrate instantly.
 
 - 🔀 **Full Action Randomization**  
   Random delays between requests, varied message templates, and optional random token selection (`RANDOM_ACCOUNTS=true`) all combine to mimic a human user and reduce the chance of blocks.
@@ -73,10 +82,14 @@ poetry install
 ```
 
 3. Edit config.yaml
+
+4. Rename proxy.example.txt -> proxy.txt
+
+5. Rename accounts.example.txt -> accounts.txt
 ```
 You need have API Key for LLM OpenAI/DeepSeek for AI mode work
 ```
-- https://auth.openai.com
+- https://platform.openai.com
 - https://platform.deepseek.com
     
 ## ⚡️ Settings

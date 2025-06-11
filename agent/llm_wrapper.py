@@ -32,8 +32,9 @@ class LLMFactory:
 
     @staticmethod
     def _get_openai_llm(api_key: SecretStr):
-        os.environ["HTTP_PROXY"] = "socks5://"+settings.AI.proxy
-        os.environ["HTTPS_PROXY"] = "socks5://"+settings.AI.proxy
+        if settings.AI.proxy != "":
+            os.environ["HTTP_PROXY"] = "socks5://"+settings.AI.proxy
+            os.environ["HTTPS_PROXY"] = "socks5://"+settings.AI.proxy
 
         return ChatOpenAI(
             model=settings.AI.model,
