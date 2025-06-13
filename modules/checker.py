@@ -1,5 +1,6 @@
 import asyncio
 import csv
+import random
 from dataclasses import dataclass, field
 from datetime import datetime
 from enum import Enum
@@ -52,15 +53,12 @@ class TokenChecker:
 
     def __init__(self):
         if settings.SETTINGS.USE_PROXY:
-            self.account_proxy_map: Dict[str, Optional[str]] = {
-                account: proxy
-                for account, proxy in zip(ACCOUNTS, PROXIES)
-            }
+            pairs = list(zip(ACCOUNTS, PROXIES))
+            if settings.SETTINGS.RANDOM_ACCOUNTS:
+                random.shuffle(pairs)
+            self.account_proxy_map: Dict[str, Optional[str]] = dict(pairs)
         else:
-            self.account_proxy_map: Dict[str, Optional[str]] = {
-                account: None
-                for account in ACCOUNTS
-            }
+            self.account_proxy_map: Dict[str, Optional[str]] = {account: None for account in ACCOUNTS}
 
         self.results: List[TokenInfo] = []
         self.semaphore = asyncio.Semaphore(10)

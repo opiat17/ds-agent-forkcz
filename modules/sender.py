@@ -131,7 +131,7 @@ class MessageSender:
                 return
 
     async def _send_ai_message(self, channel_id: str):
-        async with DiscordUserClient(token=self.account) as client:
+        async with DiscordUserClient(token=self.account, proxy=self.proxy) as client:
             result = await client.get_channel_messages(channel_id, limit=100)
             if result is None:
                 raise Exception
@@ -169,7 +169,7 @@ class MessageSender:
 
         media_file = random.choice(self.media_files)
 
-        async with DiscordUserClient(token=self.account) as client:
+        async with DiscordUserClient(token=self.account, proxy=self.proxy) as client:
             if self.proxy:
                 pass
 
@@ -188,7 +188,7 @@ class MessageSender:
 
         message = random.choice(settings.SETTINGS.RANDOM_MESSAGES)
 
-        async with DiscordUserClient(token=self.account) as client:
+        async with DiscordUserClient(token=self.account, proxy=self.proxy) as client:
             result = await client.send_message(channel_id, message)
             if result is None:
                 raise Exception

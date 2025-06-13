@@ -1,1 +1,1 @@
-host:port@username:pass
+username:pass@host:port
