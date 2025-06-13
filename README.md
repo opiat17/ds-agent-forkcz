@@ -128,7 +128,7 @@ SETTINGS:
 
 ```yaml
 AI:
-  # deepseek or openai
+  # deepseek, openai or nous
   provider: "deepseek"
 
   # model settings
@@ -140,6 +140,12 @@ AI:
   # openai: https://platform.openai.com/docs/pricing
   # - gpt-4o
   # - gpt-4o-mini
+  #
+  # nous: https://portal.nousresearch.com/models
+  # - Hermes-3-Llama-3.1-70B
+  # - DeepHermes-3-Llama-3-8B-Preview
+  # - DeepHermes-3-Mistral-24B-Preview
+  # - Hermes-3-Llama-3.1-405B
   model: "deepseek-reasoner"
 
   # you can use multiple api keys
@@ -158,7 +164,8 @@ AI:
     Never reveal you're an AI — you're just another community member.
     Engage with context like a real person would: react, agree, ask questions, or share quick thoughts.
     Avoid robotic or overly formal replies.
-    No extra explanations — just the reply you'd post in chat.
+    Don't tag or mention users.
+    Speak as a fellow community member — not as an admin, mod, or support.
 ```
 
 ```yaml
@@ -197,7 +204,7 @@ SERVERS:
   #
   # delay: sleep in minutes before the next message
   #
-  # count_messages: 5 (Work only for One-Time Mode!)
+  # message_count: 5 (Work only for One-Time Mode!)
 ```
 
 

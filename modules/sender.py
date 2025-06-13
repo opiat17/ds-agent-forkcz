@@ -98,8 +98,6 @@ class MessageSender:
             count_value = chat_config.get('message_count', 1)
             message_count = self._parse_range_value(count_value)
 
-        logger.info(f"[{self.account[:8]}] [{server_name}] Channel {channel_id}:")
-
         sent_count = 0
         while sent_count < message_count:
             try:
@@ -152,6 +150,9 @@ class MessageSender:
                 ai_response = await ai_agent.handle_input(prompt)
 
             if ai_response is None:
+                logger.error(
+                    f"[{self.account[:8]}] Error get AI message from '{settings.AI.provider}'"
+                )
                 raise Exception
 
             result = await client.send_message(channel_id, ai_response)

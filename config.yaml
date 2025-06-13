@@ -81,17 +81,17 @@ default:
       CHATS:
         - { chat_id: "123", message_type: "1", delay: ["1", "1"] }
 
-    test:
-      server_id: "123"
-      ENABLED: true
-      CHATS:
-        - { chat_id: "123", message_type: "1", delay: [ "1", "1" ] }
-
-    test2:
-      server_id: "123"
-      ENABLED: true
-      CHATS:
-        - { chat_id: "123", message_type: "1", delay: [ "1", "1" ] }
+#    test:
+#      server_id: "123"
+#      ENABLED: true
+#      CHATS:
+#        - { chat_id: "123", message_type: "1", delay: [ "1", "1" ] }
+#
+#    test2:
+#      server_id: "123"
+#      ENABLED: true
+#      CHATS:
+#        - { chat_id: "123", message_type: "1", delay: [ "1", "1" ], message_count: ["5", "10"] }
 
 
       # message_type: 1/2/3
@@ -101,4 +101,4 @@ default:
       #
       # delay: sleep in minutes before the next message
       #
-      # count_messages: 5 (Work only for One-Time Mode!)
+      # message_count: 5 (Work only for One-Time Mode!)
