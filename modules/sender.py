@@ -11,6 +11,39 @@ from discord.client import DiscordUserClient
 from utils.helpers import get_media_files
 
 
+def _summarize_messages_for_prompt(
+    messages: list[dict[str, str]], max_chars: int = 1500
+) -> str:
+    """
+    messages: [{ "author": "Nick", "content": "text", "ts": "..." }, ...]
+    Hard-trims content to max_chars while keeping the gist.
+    """
+    lines: list[str] = []
+    for m in messages:
+        content = (m.get("content") or "").strip().replace("\n", " ")
+        if not content:
+            continue
+        author = m.get("author") or "user"
+        lines.append(f"{author}: {content}")
+        if sum(len(x) for x in lines) > max_chars:
+            break
+    return "\n".join(lines[-50:])  # the most recent part matters
+
+
+def _build_ai_prompt(
+    system_prompt: str, summary: str, recent_tail: str, locale_hint: str
+) -> str:
+    """
+    Concatenates everything into a single string prompt to keep SimpleAgent unchanged.
+    """
+    return (
+        f"{system_prompt.strip()}\n\n"
+        f"CONTEXT (short summary):\n{summary.strip()}\n\n"
+        f"RECENT MESSAGES:\n{recent_tail.strip()}\n\n"
+        f"Requirement: reply in the channel language ({locale_hint}), briefly (1–3 sentences), strictly based on the context."
+    )
+
+
 class MessageSender:
     def __init__(self, mode: str = "always_mode", account: str = None, proxy: str = None):
         self.mode = mode
@@ -129,33 +162,51 @@ class MessageSender:
                 return
 
     async def _send_ai_message(self, channel_id: str):
-        async with DiscordUserClient(token=self.account, proxy=self.proxy) as client:
-            result = await client.get_channel_messages(channel_id, limit=100)
-            if result is None:
+        async with DiscordUserClient(token=self.account, proxy=self.proxy) as dc:
+            raw = await dc.get_channel_messages(channel_id, limit=100)
+            if raw is None:
                 raise Exception
 
-            context = "\n".join([
-                f"{msg.author_username}: {msg.content}"
-                for msg in result[::-1]
-                if msg.content
-            ])
+            history: list[dict[str, str]] = []
+            for msg in reversed(raw or []):
+                content = (getattr(msg, "content", "") or "").strip()
+                if not content:
+                    continue
+                author = getattr(msg, "author_username", "user")
+                history.append({"author": author, "content": content})
 
-            prompt = f"{settings.AI.system_prompt}\n\nContext messages:\n{context}"
-
-            if settings.AI.provider == "nous":
-                async with NousResearch(self.account, self.proxy) as nous:
-                    ai_response = await nous.invoke(prompt)
-            else:
-                ai_agent = SimpleAgent(settings.AI.provider)
-                ai_response = await ai_agent.handle_input(prompt)
-
-            if ai_response is None:
-                logger.error(
-                    f"[{self.account[:8]}] Error get AI message from '{settings.AI.provider}'"
+            if not history:
+                message = (
+                    "Could someone summarize the last question? I'd like to reply on-topic."
                 )
-                raise Exception
+            else:
+                recent_tail = _summarize_messages_for_prompt(history, max_chars=1500)
+                topic_hint = history[-1]["content"][:140]
+                summary = f"Recent discussions revolve around: '{topic_hint}'."
+                locale_hint = (
+                    "ru"
+                    if sum(
+                        c.isalpha() and ("а" <= c <= "я" or "А" <= c <= "Я")
+                        for c in recent_tail
+                    )
+                    > 10
+                    else "en"
+                )
+                prompt = _build_ai_prompt(
+                    settings.AI.system_prompt, summary, recent_tail, locale_hint
+                )
 
-            result = await client.send_message(channel_id, ai_response)
+                if settings.AI.provider == "nous":
+                    async with NousResearch(self.account, self.proxy) as nous:
+                        message = await nous.invoke(prompt)
+                else:
+                    agent = SimpleAgent(settings.AI.provider)
+                    message = await agent.handle_input(prompt)
+
+            if not message:
+                message = "I can chime in once you clarify the question or details."
+
+            result = await dc.send_message(channel_id, message)
             if result is None:
                 raise Exception
 
