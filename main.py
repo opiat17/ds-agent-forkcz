@@ -18,8 +18,6 @@ def get_module():
             Choice("3) Token Checker", "token_checker"),
             Choice("4) Exit", "exit"),
         ],
-        qmark="⚙️ ",
-        pointer="✅ "
     ).ask()
     if result == "exit":
         print("\n❤️ Subscribe to me – https://t.me/sybilwave")
