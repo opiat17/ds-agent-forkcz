@@ -3,6 +3,9 @@
   <img src="https://i.postimg.cc/kMKDp35T/2025-06-06-134425.png" alt="Cursor Pro Logo" width="800" style="border-radius: 6px;"/>
 </p>
 
+This repository is a fork of the original [ds-agent](https://github.com/czbag/ds-agent) project. It includes extra tweaks and improvements added by the community. For news and updates, join our public channel: [t.me/afflictionmoney](https://t.me/afflictionmoney).
+
+
 
 <h1 align="center">DS-Agent</h1>
 
