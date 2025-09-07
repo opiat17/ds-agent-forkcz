@@ -39,8 +39,11 @@ AI Agent for working with Discord
   - `Hermes-3-Llama-3.1-70B`
   - `DeepHermes-3-Llama-3-8B-Preview`
   - `DeepHermes-3-Mistral-24B-Preview`
-  - `Hermes-3-Llama-3.1-405B`  
+  - `Hermes-3-Llama-3.1-405B`
+  - `Hermes-4-70B` *(hybrid reasoning mode)*
   Use `provider: "nous"` in your `config.yaml` to integrate instantly.
+  All Nous API requests reserve up to **32k tokens**, and for hybrid models the
+  required reasoning system prompt is automatically prepended.
 
 - 🔀 **Full Action Randomization**  
   Random delays between requests, varied message templates, and optional random token selection (`RANDOM_ACCOUNTS=true`) all combine to mimic a human user and reduce the chance of blocks.
